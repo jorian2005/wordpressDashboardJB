@@ -1,0 +1,23 @@
+#wp-admin-bar-wp-logo {
+    display: none;
+}
+
+#footer-thankyou {
+    display: none;
+}
+
+#my_dashboard_widget {
+    width: 100%;
+}
+
+#menu-posts-project {
+    display: none;
+}
+
+#maintenance_mode_field_image_preview {
+    margin-top: 5px;
+}
+
+#maintenance_mode_field_logo_preview {
+    margin-top: 5px;
+}
