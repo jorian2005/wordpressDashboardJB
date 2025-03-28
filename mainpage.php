@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Dashboard JB
- * Description: Een plugin voor het aanpassen van het WordPress dashboard.
+ * Description: Een plugin met diverse functies om het beheer te beveiligen.
  * Version: 1.0
  * Author: Jorian Beukens
  */
