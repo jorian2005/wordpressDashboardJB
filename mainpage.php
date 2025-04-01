@@ -10,11 +10,10 @@
     exit;
 }
 
-require_once plugin_dir_path(__FILE__) . 'maintenance.php';
 require_once plugin_dir_path(__FILE__) . 'loginCustomizer.php';
 require_once plugin_dir_path(__FILE__) . 'editLogin.php';
-
-
+require_once plugin_dir_path(__FILE__) . 'widget.php';
+require_once plugin_dir_path(__FILE__) . 'maintenance.php';
 
 
 function my_plugin_menu() {
@@ -57,18 +56,6 @@ function my_plugin_enqueue_site_styles() {
     wp_enqueue_style('dashboard-jb-site-style', plugin_dir_url(__FILE__) . 'main.css');
 }
 add_action('wp_enqueue_scripts', 'my_plugin_enqueue_site_styles');
-
-function my_dashboard_widget() {
-    wp_add_dashboard_widget('my_dashboard_widget', 'DashboardWidget - JB', 'my_dashboard_widget_callback');
-}
-add_action('wp_dashboard_setup', 'my_dashboard_widget');
-
-function my_dashboard_widget_callback() {
-    $options = get_option('dashboard_jb_settings');
-    $custom_text = isset($options['example']) ? esc_html($options['example']) : 'Welkom op het dashboard!';
-    echo '<h2>' . $custom_text . '</h2>
-    <p>Deze plugin is gemaakt door <a href="https://jorianbeukens.nl" target="_blank">Jorian Beukens</a>.</p>';
-}
 
 function my_plugin_settings_init() {
     register_setting('dashboard_jb_settings_group', 'dashboard_jb_settings');
