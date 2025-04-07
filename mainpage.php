@@ -5,9 +5,8 @@
  * Version: 1.1
  * Author: Jorian Beukens
  * Author URI: https://jorianbeukens.nl
- * License: GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * 
+ * License: GPL3.0
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
  if (!defined('ABSPATH')) {
