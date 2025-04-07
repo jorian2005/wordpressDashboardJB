@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function my_plugin_custom_login_url_page() {
+function plugin_jb_custom_login_url_page() {
     wp_enqueue_media();
 
     ?>

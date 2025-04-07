@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function my_plugin_maintenance_mode_page() {
+function plugin_jb_maintenance_mode_page() {
     wp_enqueue_media();
     ?>
     <div class="wrap">
@@ -23,20 +23,20 @@ function my_plugin_maintenance_mode_page() {
     <?php
 }
 
-function my_plugin_maintenance_mode_settings_init() {
+function plugin_jb_maintenance_mode_settings_init() {
     register_setting('maintenance-mode', 'maintenance_mode_settings');
 
     add_settings_section(
         'maintenance-mode',
         'Instellingen',
-        'my_plugin_maintenance_mode_section_callback',
+        'plugin_jb_maintenance_mode_section_callback',
         'maintenance-mode'
     );
 
     add_settings_field(
         'maintenance_mode_field_enabled',
         'Onderhoudsmodus Inschakelen',
-        'my_plugin_maintenance_mode_field_callback',
+        'plugin_jb_maintenance_mode_field_callback',
         'maintenance-mode',
         'maintenance-mode'
     );
@@ -44,14 +44,14 @@ function my_plugin_maintenance_mode_settings_init() {
     add_settings_section(
         'maintenance-mode-styling',
         'Styling',
-        'my_plugin_maintenance_styling_section_callback',
+        'plugin_jb_maintenance_styling_section_callback',
         'maintenance-mode'
     );
 
     add_settings_field(
         'maintenance_mode_field_title',
         'Titel',
-        'my_plugin_maintenance_mode_title_field_callback',
+        'plugin_jb_maintenance_mode_title_field_callback',
         'maintenance-mode',
         'maintenance-mode'
     );
@@ -59,7 +59,7 @@ function my_plugin_maintenance_mode_settings_init() {
     add_settings_field(
         'maintenance_mode_field_message',
         'Bericht',
-        'my_plugin_maintenance_mode_message_field_callback',
+        'plugin_jb_maintenance_mode_message_field_callback',
         'maintenance-mode',
         'maintenance-mode'
     );
@@ -67,7 +67,7 @@ function my_plugin_maintenance_mode_settings_init() {
     add_settings_field(
         'maintenance_mode_field_logo',
         'Logo',
-        'my_plugin_maintenance_mode_logo_field_callback',
+        'plugin_jb_maintenance_mode_logo_field_callback',
         'maintenance-mode',
         'maintenance-mode-styling'
     );
@@ -75,40 +75,40 @@ function my_plugin_maintenance_mode_settings_init() {
     add_settings_field(
         'maintenance_mode_field_image',
         'Achtergrondafbeelding',
-        'my_plugin_maintenance_mode_image_field_callback',
+        'plugin_jb_maintenance_mode_image_field_callback',
         'maintenance-mode',
         'maintenance-mode-styling'
     );
 }
-add_action('admin_init', 'my_plugin_maintenance_mode_settings_init');
+add_action('admin_init', 'plugin_jb_maintenance_mode_settings_init');
 
-function my_plugin_maintenance_mode_section_callback() {
+function plugin_jb_maintenance_mode_section_callback() {
     echo '<p>Configureer hier de instellingen voor de onderhoudsmodus.</p>';
 }
 
-function my_plugin_maintenance_styling_section_callback() {
+function plugin_jb_maintenance_styling_section_callback() {
     echo '<p>Configureer hier de stijl van de onderhoudsmodus.</p>';
 }
 
-function my_plugin_maintenance_mode_field_callback() {
+function plugin_jb_maintenance_mode_field_callback() {
     $options = get_option('maintenance_mode_settings');
     $enabled = isset($options['enabled']) ? esc_attr($options['enabled']) : '';
     echo '<input type="checkbox" id="maintenance_mode_field_enabled" name="maintenance_mode_settings[enabled]" value="1" ' . checked(1, $enabled, false) . '>';
 }
 
-function my_plugin_maintenance_mode_title_field_callback() {
+function plugin_jb_maintenance_mode_title_field_callback() {
     $options = get_option('maintenance_mode_settings');
     $title = isset($options['title']) ? esc_attr($options['title']) : '';
     echo '<input type="text" id="maintenance_mode_field_title" name="maintenance_mode_settings[title]" value="' . $title . '">';
 }
 
-function my_plugin_maintenance_mode_message_field_callback() {
+function plugin_jb_maintenance_mode_message_field_callback() {
     $options = get_option('maintenance_mode_settings');
     $message = isset($options['message']) ? esc_attr($options['message']) : '';
     echo '<textarea id="maintenance_mode_field_message" name="maintenance_mode_settings[message]" rows="5" cols="50">' . $message . '</textarea>';
 }
 
-function my_plugin_maintenance_mode_logo_field_callback() {
+function plugin_jb_maintenance_mode_logo_field_callback() {
     $options = get_option('maintenance_mode_settings');
     $logo = isset($options['logo']) ? esc_attr($options['logo']) : '';
     echo '<input type="hidden" id="maintenance_mode_field_logo" name="maintenance_mode_settings[logo]" value="' . $logo . '">';
@@ -143,7 +143,7 @@ function my_plugin_maintenance_mode_logo_field_callback() {
     <?php
 }
 
-function my_plugin_maintenance_mode_image_field_callback() {
+function plugin_jb_maintenance_mode_image_field_callback() {
     $options = get_option('maintenance_mode_settings');
     $image = isset($options['image']) ? esc_attr($options['image']) : '';
     echo '<input type="hidden" id="maintenance_mode_field_image" name="maintenance_mode_settings[image]" value="' . $image . '">';

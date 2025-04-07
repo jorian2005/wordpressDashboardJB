@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function my_plugin_redirect_page() {
+function plugin_jb_redirect_page() {
     ?>
     <div class="wrap">
         <h1>Redirect Instellingen</h1>
@@ -24,7 +24,6 @@ function my_plugin_redirect_page() {
     }
 
     $saved_redirects = get_option('mijn_seo_plugin_redirects', []);
-    echo '<h2>Redirect Manager</h2>';
     echo '<form method="post" action="">';
     echo '<table class="form-table" style="width: 50%;" id="redirect-table">';
     echo '<thead><tr><th scope="col" style="width: 45%;">Van (oude URL)</th><th scope="col" style="width: 45%;">Naar (nieuwe URL)</th></tr></thead><tbody>';

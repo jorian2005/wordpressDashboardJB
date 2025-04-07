@@ -45,7 +45,7 @@ function mijn_seo_plugin_generate_sitemap() {
     file_put_contents($file, $sitemap);
 }
 
-function my_plugin_seo_page() {
+function plugin_jb_seo_page() {
     ?>
     <div class="wrap">
         <h1>SEO Instellingen</h1>
