@@ -13,9 +13,8 @@
 require_once plugin_dir_path(__FILE__) . 'maintenance.php';
 require_once plugin_dir_path(__FILE__) . 'loginCustomizer.php';
 require_once plugin_dir_path(__FILE__) . 'editLogin.php';
-
-
-
+require_once plugin_dir_path(__FILE__) . 'seo.php';
+require_once plugin_dir_path(__FILE__) . 'redirect.php';
 
 function my_plugin_menu() {
     add_menu_page(
@@ -44,6 +43,24 @@ function my_plugin_menu() {
         'manage_options',
         'maintenance-mode-settings',
         'my_plugin_maintenance_mode_page'
+    );
+
+    add_submenu_page(
+        'dashboard-jb',
+        'SEO Instellingen',
+        'SEO Instellingen',
+        'manage_options',
+        'seo-settings',
+        'my_plugin_seo_page'
+    );
+
+    add_submenu_page(
+        'dashboard-jb',
+        'Redirect Instellingen',
+        'Redirect Instellingen',
+        'manage_options',
+        'redirect-settings',
+        'my_plugin_redirect_page'
     );
 }   
 add_action('admin_menu', 'my_plugin_menu');
