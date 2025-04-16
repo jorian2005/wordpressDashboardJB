@@ -12,6 +12,7 @@ function mijn_seo_plugin_generate_sitemap() {
     $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
     $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
+    // Voeg de homepage toe
     $sitemap .= '<url>';
     $sitemap .= '<loc>' . esc_url(home_url()) . '</loc>';
     $sitemap .= '<lastmod>' . date('c') . '</lastmod>';
@@ -19,24 +20,46 @@ function mijn_seo_plugin_generate_sitemap() {
     $sitemap .= '<priority>1.0</priority>';
     $sitemap .= '</url>';
 
-    $posts = get_posts(array('numberposts' => -1));
-    foreach ($posts as $post) {
-        $sitemap .= '<url>';
-        $sitemap .= '<loc>' . esc_url(get_permalink($post->ID)) . '</loc>';
-        $sitemap .= '<lastmod>' . get_the_modified_date('c', $post->ID) . '</lastmod>';
-        $sitemap .= '<changefreq>weekly</changefreq>';
-        $sitemap .= '<priority>0.8</priority>';
-        $sitemap .= '</url>';
+    // Alle publieke custom post types
+    $post_types = get_post_types(['public' => true], 'names');
+
+    foreach ($post_types as $post_type) {
+        if (in_array($post_type, ['attachment', 'revision', 'nav_menu_item'])) {
+            continue;
+        }
+
+        $posts = get_posts([
+            'post_type' => $post_type,
+            'post_status' => 'publish',
+            'numberposts' => -1
+        ]);
+
+        foreach ($posts as $post) {
+            $sitemap .= '<url>';
+            $sitemap .= '<loc>' . esc_url(get_permalink($post->ID)) . '</loc>';
+            $sitemap .= '<lastmod>' . get_the_modified_date('c', $post->ID) . '</lastmod>';
+            $sitemap .= '<changefreq>weekly</changefreq>';
+            $sitemap .= '<priority>0.8</priority>';
+            $sitemap .= '</url>';
+        }
     }
 
-    $pages = get_pages();
-    foreach ($pages as $page) {
-        $sitemap .= '<url>';
-        $sitemap .= '<loc>' . esc_url(get_permalink($page->ID)) . '</loc>';
-        $sitemap .= '<lastmod>' . get_the_modified_date('c', $page->ID) . '</lastmod>';
-        $sitemap .= '<changefreq>monthly</changefreq>';
-        $sitemap .= '<priority>0.6</priority>';
-        $sitemap .= '</url>';
+    $taxonomies = get_taxonomies(['public' => true], 'names');
+
+    foreach ($taxonomies as $taxonomy) {
+        $terms = get_terms([
+            'taxonomy' => $taxonomy,
+            'hide_empty' => true,
+        ]);
+
+        foreach ($terms as $term) {
+            $sitemap .= '<url>';
+            $sitemap .= '<loc>' . esc_url(get_term_link($term)) . '</loc>';
+            $sitemap .= '<lastmod>' . date('c') . '</lastmod>';
+            $sitemap .= '<changefreq>monthly</changefreq>';
+            $sitemap .= '<priority>0.5</priority>';
+            $sitemap .= '</url>';
+        }
     }
 
     $sitemap .= '</urlset>';
@@ -44,6 +67,7 @@ function mijn_seo_plugin_generate_sitemap() {
     $file = ABSPATH . 'sitemap.xml';
     file_put_contents($file, $sitemap);
 }
+
 
 function plugin_jb_seo_page() {
     ?>
