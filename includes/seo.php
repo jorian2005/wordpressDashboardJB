@@ -1,4 +1,5 @@
 <?php
+namespace DashboardJB\seo;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -181,3 +182,4 @@ function count_syllables_in_word($word) {
     }
     return $syllables;
 }
+

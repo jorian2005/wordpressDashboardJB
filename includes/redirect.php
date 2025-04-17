@@ -1,4 +1,5 @@
 <?php
+namespace DashboardJB\redirect;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -74,4 +75,4 @@ function mijn_seo_plugin_do_redirects() {
         }
     }
 }
-add_action('template_redirect', 'mijn_seo_plugin_do_redirects');
+add_action('template_redirect', '\DashboardJB\redirect\mijn_seo_plugin_do_redirects');

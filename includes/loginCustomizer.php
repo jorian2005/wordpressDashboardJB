@@ -1,4 +1,10 @@
 <?php
+namespace DashboardJB\loginCustomizer;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $loginText = get_option('clu_login_text', '&copy; ' . date('Y') . ' - ' . get_bloginfo('name'));
 $loginColor = get_option('clu_login_color', '#ff0402');
 $loginSecondColor = get_option('clu_login_second_color', '#ff0402');
@@ -80,21 +86,21 @@ function custom_login_style() {
         }
     </style>';
 }
-add_action( 'login_head', 'custom_login_style' );
+add_action( 'login_head', '\DashboardJB\loginCustomizer\custom_login_style' );
 
 function custom_login_url() {
     return home_url();
 }
-add_filter( 'login_headerurl', 'custom_login_url' );
+add_filter( 'login_headerurl', '\DashboardJB\loginCustomizer\custom_login_url' );
 
 function custom_login_title() {
     return 'Welkom op mijn website!';
 }
-add_filter( 'login_headertitle', 'custom_login_title' );
+add_filter( 'login_headertitle', '\DashboardJB\loginCustomizer\custom_login_title' );
 
 function custom_login_message() {
     global $loginText;	
 
     echo '<p class="bottom-text-login">' . $loginText .'</p>';
 }
-add_action( 'login_footer', 'custom_login_message' );
+add_action( 'login_footer', '\DashboardJB\loginCustomizer\custom_login_message' );

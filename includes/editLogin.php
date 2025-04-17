@@ -1,7 +1,8 @@
 <?php
+namespace DashboardJB\editLogin;
 
 if (!defined('ABSPATH')) {
-    exit;
+    exit; // Exit if accessed directly
 }
 
 function plugin_jb_custom_login_url_page() {
@@ -37,43 +38,47 @@ function clu_register_settings() {
     add_settings_section('clu_colors_section', 'Kleuren', null, 'custom-login-url');
     add_settings_section('clu_images_section', 'Afbeeldingen', null, 'custom-login-url');
     // Algemeen
-    add_settings_field('clu_login_slug', 'Loginslug:', 'clu_login_slug_callback', 'custom-login-url', 'clu_main_section');
-    add_settings_field('clu_login_text', 'Footertekst:', 'clu_login_text_callback', 'custom-login-url', 'clu_main_section');
+    add_settings_field('clu_login_slug', 'Loginslug:', '\DashboardJB\editLogin\clu_login_slug_callback', 'custom-login-url', 'clu_main_section');
+    add_settings_field('clu_login_text', 'Footertekst:', '\DashboardJB\editLogin\clu_login_text_callback', 'custom-login-url', 'clu_main_section');
     // Kleuren
-    add_settings_field('clu_login_color', 'Thema kleur:', 'clu_login_theme_color_callback', 'custom-login-url', 'clu_colors_section');
-    add_settings_field('clu_login_second_color', 'Tweede kleur:', 'clu_login_second_color_callback', 'custom-login-url', 'clu_colors_section');
+    add_settings_field('clu_login_color', 'Thema kleur:', '\DashboardJB\editLogin\clu_login_theme_color_callback', 'custom-login-url', 'clu_colors_section');
+    add_settings_field('clu_login_second_color', 'Tweede kleur:', '\DashboardJB\editLogin\clu_login_second_color_callback', 'custom-login-url', 'clu_colors_section');
     // Afbeeldingen
-    add_settings_field('clu_login_logo_image', 'Logo afbeelding:', 'clu_login_logo_image_callback', 'custom-login-url', 'clu_images_section');
-    add_settings_field('clu_login_background_image', 'Achtergrondafbeelding:', 'clu_login_background_image_callback', 'custom-login-url', 'clu_images_section');
+    add_settings_field('clu_login_logo_image', 'Logo afbeelding:', '\DashboardJB\editLogin\clu_login_logo_image_callback', 'custom-login-url', 'clu_images_section');
+    add_settings_field('clu_login_background_image', 'Achtergrondafbeelding:', '\DashboardJB\editLogin\clu_login_background_image_callback', 'custom-login-url', 'clu_images_section');
 }
-add_action('admin_init', 'clu_register_settings');
+add_action('admin_init', '\DashboardJB\editLogin\clu_register_settings');
 
 function clu_login_slug_callback() {
-    $value = get_option('clu_login_slug', 'mijn-login');
-    echo '<input type="text" name="clu_login_slug" value="' . esc_attr($value) . '" />';
-    echo '<p class="description">De nieuwe login slug. Gebruik alleen letters, cijfers en streepjes.</p>';
+    $value = get_option('clu_login_slug', 'mijn-login'); ?>
+    <input type="text" name="clu_login_slug" value="<?= esc_attr($value) ?>" />
+    <p class="description">De nieuwe login slug. Gebruik alleen letters, cijfers en streepjes.</p>
+    <?php
 }
 
 function clu_login_text_callback() {
-    $value = get_option('clu_login_text', '&copy; ' . date('Y') . ' - ' . get_bloginfo('name'));
-    echo '<input type="text" name="clu_login_text" value="' . esc_attr($value) . '" />';
-    echo '<p class="description">De tekst die onderaan het inlogscherm wordt weergegeven.</p>';
+    $value = get_option('clu_login_text', '&copy; ' . date('Y') . ' - ' . get_bloginfo('name')); ?>
+    <input type="text" name="clu_login_text" value="<?= esc_attr($value)?>" />
+    <p class="description">De tekst die onderaan het inlogscherm wordt weergegeven.</p>
+    <?php
 }
 
 function clu_login_theme_color_callback() {
-    $value = get_option('clu_login_color', '#ff0402');
-    echo '<input type="color" name="clu_login_color" value="' . esc_attr($value) . '" />';
-    echo '<p class="description">De standaard kleur van de login pagina</p>';
+    $value = get_option('clu_login_color', '#ff0402'); ?>
+    <input type="color" name="clu_login_color" value="<?= esc_attr($value) ?>" />
+    <p class="description">De standaard kleur van de login pagina</p>
+    <?php
 }
 
 function clu_login_second_color_callback() {
-    $value = get_option('clu_login_second_color', '#ff0402');
-    echo '<input type="color" name="clu_login_second_color" value="' . esc_attr($value) . '" />';
-    echo '<p class="description">De tweede kleur van de loginpagina (hoverstates)</p>';
+    $value = get_option('clu_login_second_color', '#ff0402'); ?>
+    <input type="color" name="clu_login_second_color" value="<?= esc_attr($value) ?>" />
+    <p class="description">De tweede kleur van de loginpagina (hoverstates)</p>
+    <?php
 }
 
 function clu_login_background_image_callback() {
-    $default_image = plugin_dir_url(__FILE__) . 'achtergrond.webp';
+    $default_image = IMAGES_PATH . 'achtergrond.webp';
     $value = get_option('clu_login_background_image', '');
 
     if (empty($value)) {
@@ -81,11 +86,11 @@ function clu_login_background_image_callback() {
     }
     ?>
     <div style="margin-bottom: 10px;">
-        <img id="clu_background_preview" src="<?php echo esc_url($value); ?>" style="max-width: 300px; max-height: 150px; display: block;" />
+        <img id="clu_background_preview" src="<?= esc_url($value); ?>" style="max-width: 300px; max-height: 150px; display: block;" />
     </div>
     <button type="button" class="button" id="clu_upload_background_button">Afbeelding kiezen</button>
-    <input type="hidden" id="clu_login_background_image" name="clu_login_background_image" value="<?php echo esc_attr($value); ?>" />
-    <button type="button" class="button button-secondary" id="clu_remove_background_button" style="display: <?php echo ($value !== $default_image) ? 'inline-block' : 'none'; ?>;">Verwijderen</button>
+    <input type="hidden" id="clu_login_background_image" name="clu_login_background_image" value="<?= esc_attr($value); ?>" />
+    <button type="button" class="button button-secondary" id="clu_remove_background_button" style="display: <?= ($value !== $default_image) ? 'inline-block' : 'none'; ?>;">Verwijderen</button>
     <p class="description">Selecteer of upload een achtergrondafbeelding voor het inlogscherm.</p>
 
     <script>
@@ -122,7 +127,7 @@ function clu_login_background_image_callback() {
 
             $('#clu_remove_background_button').click(function() {
                 $('#clu_login_background_image').val('');
-                $('#clu_background_preview').attr('src', '<?php echo esc_url($default_image); ?>').show();
+                $('#clu_background_preview').attr('src', '<?= esc_url($default_image); ?>').show();
                 $(this).hide();
             });
         });
@@ -131,7 +136,7 @@ function clu_login_background_image_callback() {
 }
 
 function clu_login_logo_image_callback() {
-    $default_logo = plugin_dir_url(__FILE__) . 'logo.svg';
+    $default_logo = IMAGES_PATH . 'logo.svg';
     $value = get_option('clu_login_logo_image', '');
 
     if (empty($value)) {
@@ -139,11 +144,11 @@ function clu_login_logo_image_callback() {
     }
     ?>
     <div style="margin-bottom: 10px;">
-        <img id="clu_logo_preview" src="<?php echo esc_url($value); ?>" style="height: 150px; display: block;" />
+        <img id="clu_logo_preview" src="<?= esc_url($value); ?>" style="height: 150px; display: block;" />
     </div>
     <button type="button" class="button" id="clu_upload_logo_button">Afbeelding kiezen</button>
-    <input type="hidden" id="clu_login_logo_image" name="clu_login_logo_image" value="<?php echo esc_attr($value); ?>" />
-    <button type="button" class="button button-secondary" id="clu_remove_logo_button" style="display: <?php echo ($value !== $default_logo) ? 'inline-block' : 'none'; ?>;">Verwijderen</button>
+    <input type="hidden" id="clu_login_logo_image" name="clu_login_logo_image" value="<?= esc_attr($value); ?>" />
+    <button type="button" class="button button-secondary" id="clu_remove_logo_button" style="display: <?= ($value !== $default_logo) ? 'inline-block' : 'none'; ?>;">Verwijderen</button>
     <p class="description">Selecteer of upload een achtergrondafbeelding voor het inlogscherm.</p>
 
     <script>
@@ -180,7 +185,7 @@ function clu_login_logo_image_callback() {
 
             $('#clu_remove_logo_button').click(function() {
                 $('#clu_login_logo_image').val('');
-                $('#clu_logo_preview').attr('src', '<?php echo esc_url($default_image); ?>').show();
+                $('#clu_logo_preview').attr('src', '<?= esc_url($default_logo); ?>').show();
                 $(this).hide();
             });
         });
@@ -197,7 +202,7 @@ function clu_enqueue_admin_scripts($hook) {
         error_log("wp_enqueue_media() is geladen op: " . $hook);
     }
 }
-add_action('admin_enqueue_scripts', 'clu_enqueue_admin_scripts');
+add_action('admin_enqueue_scripts', '\DashboardJB\editLogin\clu_enqueue_admin_scripts');
 
 function clu_validate_login_slug($input) {
     if ($input === 'wp-admin' || $input === 'wp-login.php') {
@@ -223,10 +228,10 @@ function clu_block_default_login() {
         exit;
     }
 }
-add_action('init', 'clu_block_default_login');
+add_action('init', '\DashboardJB\editLogin\clu_block_default_login');
 
 function clu_custom_login() {
-    $custom_slug = get_option('clu_login_slug', 'mijn-login');
+    $custom_slug = get_option('clu_login_slug', 'inloggen');
     
     if (strpos($_SERVER['REQUEST_URI'], '/' . $custom_slug) !== false) {
         global $error, $user_login;
@@ -241,7 +246,7 @@ function clu_custom_login() {
         exit;
     }
 }
-add_action('init', 'clu_custom_login');
+add_action('init', '\DashboardJB\editLogin\clu_custom_login');
 
 function clu_handle_logout() {
     if (isset($_GET['action']) && $_GET['action'] === 'logout') {
@@ -262,4 +267,4 @@ function clu_handle_logout() {
         exit;
     }
 }
-add_action('init', 'clu_handle_logout');
+add_action('init', '\DashboardJB\editLogin\clu_handle_logout');
