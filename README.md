@@ -1,6 +1,6 @@
 # Dashboard JB
 
-Dashboard JB is a WordPress plugin designed to customize and enhance the WordPress dashboard and login experience. It provides various features to modify the login page, manage maintenance mode, configure SEO settings, and handle redirects.
+Dashboard JB is a WordPress plugin designed to customize and enhance the WordPress dashboard and login experience. It provides various features to modify the login page, manage maintenance mode, configure SEO settings, handle redirects, and more.
 
 ## Features
 
@@ -11,17 +11,22 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 
 - **Maintenance Mode**:
   - Enable or disable maintenance mode.
-  - Customize the maintenance mode page.
+  - Customize the maintenance mode page with a title, message, logo, and background image.
 
 - **SEO Settings**:
+  - Generate an XML sitemap for your site.
   - Configure SEO-related settings for your WordPress site.
 
 - **Redirect Settings**:
   - Manage custom redirects for your site.
+  - Add or edit URL redirects directly from the admin interface.
+
+- **Analytics**:
+  - View site analytics and visitor statistics.
 
 ## Installation
 
-1. Download the plugin files and upload them to the `wp-content/plugins/wordpressDashboardJB` directory.
+1. Download the plugin files and upload them to the `wp-content/plugins/DashboardJB` directory.
 2. Activate the plugin through the WordPress admin dashboard under the "Plugins" menu.
 
 ## Usage
@@ -36,27 +41,41 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 
 ### Maintenance Mode
 1. Navigate to **Dashboard JB > Onderhoudsmodus**.
-2. Enable maintenance mode and customize the maintenance page.
+2. Enable maintenance mode and customize the maintenance page with:
+   - Title
+   - Message
+   - Logo
+   - Background image
 
 ### SEO Settings
 1. Navigate to **Dashboard JB > SEO Instellingen**.
-2. Configure SEO-related options for your site.
+2. Generate an XML sitemap for your site.
+3. Configure other SEO-related options.
 
 ### Redirect Settings
 1. Navigate to **Dashboard JB > Redirect Instellingen**.
 2. Add or manage custom redirects.
 
+### Analytics
+1. Navigate to **Dashboard JB > Analytics**.
+2. View site analytics and visitor statistics.
+
 ## Development
 
 ### File Structure
-- `mainpage.php`: Registers the admin menu and submenu pages.
-- `editLogin.php`: Handles custom login page settings.
-- `loginCustomizer.php`: Applies custom styles and functionality to the login page.
-- `maintenance.php`: Manages maintenance mode functionality.
-- `seo.php`: Handles SEO settings.
-- `redirect.php`: Manages redirect settings.
-- `clu-admin.js`: JavaScript for handling media uploads in the admin interface.
-- `main.css`: Styles for the plugin's admin pages.
+- `dashboard-jb.php`: Main plugin file that initializes the plugin and registers admin menus.
+- `admin/dashboard-widget.php`: Adds custom dashboard widgets.
+- `admin/settings-page.php`: Handles the settings page for the plugin.
+- `admin/dashboard.php`: Manages the dashboard customization.
+- `includes/editLogin.php`: Handles custom login page settings.
+- `includes/loginCustomizer.php`: Applies custom styles and functionality to the login page.
+- `includes/maintenance.php`: Manages maintenance mode functionality.
+- `includes/seo.php`: Handles SEO settings and sitemap generation.
+- `includes/redirect.php`: Manages redirect settings.
+- `includes/analytics.php`: Displays analytics and visitor statistics.
+- `assets/css/style.css`: Styles for the plugin's admin pages and customizations.
+- `assets/js/clu-admin.js`: JavaScript for handling media uploads in the admin interface.
+- `assets/images/logo.svg`: Default logo for the plugin.
 
 ### Hooks and Filters
 - `admin_menu`: Adds the plugin's menu and submenus.
@@ -64,6 +83,7 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 - `login_head`: Adds custom styles to the login page.
 - `login_footer`: Adds custom footer text to the login page.
 - `init`: Handles custom login and logout functionality.
+- `template_redirect`: Enables maintenance mode when active.
 
 ## License
 
