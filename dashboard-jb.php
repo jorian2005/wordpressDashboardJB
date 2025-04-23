@@ -31,17 +31,17 @@ define('JS_PATH', plugin_dir_url(__FILE__) . 'assets/js/');
 
 function plugin_jb_menu() {
     add_menu_page(
-        'Dashboard JB Instellingen',      
-        'Dashboard JB',                   
+        'JB PowerPanel Instellingen',      
+        'JB PowerPanel',
         'manage_options',                 
-        'dashboard-jb',                   
+        'jb-powerpanel',                   
         '\DashboardJB\dashboard\plugin_jb_settings_page',
         plugin_dir_url(__FILE__) . 'assets/images/logo.svg', 
         2                                 
     );
 
     add_submenu_page(
-        'dashboard-jb',
+        'jb-powerpanel',
         'Custom Login Instellingen',
         'Custom Login',
         'manage_options',
@@ -50,7 +50,7 @@ function plugin_jb_menu() {
     );
 
     add_submenu_page(
-        'dashboard-jb',
+        'jb-powerpanel',
         'Onderhoudsmodus Instellingen',
         'Onderhoudsmodus',
         'manage_options',
@@ -59,7 +59,7 @@ function plugin_jb_menu() {
     );
 
     add_submenu_page(
-        'dashboard-jb',
+        'jb-powerpanel',
         'SEO Instellingen',
         'SEO Instellingen',
         'manage_options',
@@ -68,7 +68,7 @@ function plugin_jb_menu() {
     );
 
     add_submenu_page(
-        'dashboard-jb',
+        'jb-powerpanel',
         'Redirect Instellingen',
         'Redirect Instellingen',
         'manage_options',
@@ -77,7 +77,7 @@ function plugin_jb_menu() {
     );
 
     add_submenu_page(
-        'dashboard-jb',
+        'jb-powerpanel',
         'Analytics Instellingen',
         'Analytics',
         'manage_options',
