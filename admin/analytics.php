@@ -8,10 +8,16 @@ function JB_track_page_view() {
         return;
     }
 
-    $ip = $_SERVER['REMOTE_ADDR'];
-
+    $ip = JB_get_user_ip();
     $today = date('Y-m-d');
-    
+    $cookie_name = 'jb_tracked_' . $today;
+
+    if (isset($_COOKIE[$cookie_name])) {
+        return;
+    }
+
+    setcookie($cookie_name, '1', time() + DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN);
+
     $total_views = (int) get_option('JB_total_views', 0);
     update_option('JB_total_views', $total_views + 1);
 
@@ -28,6 +34,7 @@ function JB_track_page_view() {
         update_option('JB_ips_' . $today, $ips);
     }
 }
+
 add_action('template_redirect', __NAMESPACE__ . '\JB_track_page_view');
 
 function JB_get_user_ip() {
@@ -90,6 +97,12 @@ function JB_render_analytics_page() {
         echo '<tr><td>' . $date . '</td><td>' . $views . '</td><td>' . count($ips) . '</td></tr>';
     }
     echo '</tbody></table></div>';
+    
+    echo '<div class="wrap"><h1>Statistiek Exporteren</h1>';
+    echo '<p>Exporteer alle statistiekgegevens naar CSV of JSON.</p>';
+    echo '<a href="' . admin_url('admin-post.php?action=jb_export_stats&type=csv') . '" class="button button-primary">Download CSV</a> ';
+    echo '<a href="' . admin_url('admin-post.php?action=jb_export_stats&type=json') . '" class="button">Download JSON</a>';
+    echo '</div>';
 }
 
 function JB_dashboard_widget_display() {
@@ -150,3 +163,56 @@ function JB_register_dashboard_widget() {
     wp_add_dashboard_widget('jb_analytics_widget', 'Site Statistieken - JB', __NAMESPACE__ . '\JB_dashboard_widget_display');
 }
 add_action('wp_dashboard_setup', __NAMESPACE__ . '\JB_register_dashboard_widget');
+
+function JB_cleanup_old_ip_data($days = 60) {
+    global $wpdb;
+
+    $threshold = strtotime("-{$days} days");
+    $daily_views = get_option('JB_daily_views', []);
+
+    foreach ($daily_views as $date => $count) {
+        if (strtotime($date) < $threshold) {
+            delete_option('JB_ips_' . $date);
+        }
+    }
+}
+add_action('wp_loaded', __NAMESPACE__ . '\JB_cleanup_old_ip_data');
+
+function JB_handle_export() {
+    if (!current_user_can('manage_options')) {
+        wp_die('Geen toegang');
+    }
+
+    $type = $_GET['type'] ?? 'csv';
+    $daily = get_option('JB_daily_views', []);
+    ksort($daily);
+
+    $export = [];
+    foreach ($daily as $date => $views) {
+        $ips = get_option('JB_ips_' . $date, []);
+        $export[] = [
+            'datum' => $date,
+            'weergaven' => $views,
+            'uniek' => count($ips),
+        ];
+    }
+
+    if ($type === 'json') {
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename="jb_stats_export.json"');
+        echo json_encode($export, JSON_PRETTY_PRINT);
+        exit;
+    } else {
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="jb_stats_export.csv"');
+
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['Datum', 'Weergaven', 'Unieke Bezoekers']);
+        foreach ($export as $row) {
+            fputcsv($output, $row);
+        }
+        fclose($output);
+        exit;
+    }
+}
+add_action('admin_post_jb_export_stats', __NAMESPACE__ . '\JB_handle_export');
