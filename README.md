@@ -1,6 +1,6 @@
 # Dashboard JB
 
-Dashboard JB is a WordPress plugin designed to customize and enhance the WordPress dashboard and login experience. It provides various features to modify the login page, manage maintenance mode, configure SEO settings, handle redirects, and more.
+Dashboard JB is a WordPress plugin designed to customize and enhance the WordPress dashboard and login experience. It provides various features to modify the login page, manage maintenance mode, configure SEO settings, handle redirects, view analytics, and more.
 
 ## Features
 
@@ -23,6 +23,10 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 
 - **Analytics**:
   - View site analytics and visitor statistics.
+  - Export analytics data as CSV or JSON.
+
+- **Dashboard Widgets**:
+  - Add custom widgets to the WordPress dashboard.
 
 ## Installation
 
@@ -59,6 +63,10 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 ### Analytics
 1. Navigate to **Dashboard JB > Analytics**.
 2. View site analytics and visitor statistics.
+3. Export analytics data as CSV or JSON.
+
+### Dashboard Widgets
+1. Navigate to the WordPress dashboard to view custom widgets added by the plugin.
 
 ## Development
 
@@ -67,13 +75,15 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 - `admin/dashboard-widget.php`: Adds custom dashboard widgets.
 - `admin/settings-page.php`: Handles the settings page for the plugin.
 - `admin/dashboard.php`: Manages the dashboard customization.
+- `admin/analytics.php`: Handles analytics tracking and export functionality.
 - `includes/editLogin.php`: Handles custom login page settings.
 - `includes/loginCustomizer.php`: Applies custom styles and functionality to the login page.
 - `includes/maintenance.php`: Manages maintenance mode functionality.
 - `includes/seo.php`: Handles SEO settings and sitemap generation.
 - `includes/redirect.php`: Manages redirect settings.
-- `includes/analytics.php`: Displays analytics and visitor statistics.
+- `includes/enqueue.php`: Enqueues styles and scripts for the plugin.
 - `assets/css/style.css`: Styles for the plugin's admin pages and customizations.
+- `assets/css/login.css`: Styles for the custom login page.
 - `assets/js/clu-admin.js`: JavaScript for handling media uploads in the admin interface.
 - `assets/images/logo.svg`: Default logo for the plugin.
 
@@ -84,6 +94,7 @@ Dashboard JB is a WordPress plugin designed to customize and enhance the WordPre
 - `login_footer`: Adds custom footer text to the login page.
 - `init`: Handles custom login and logout functionality.
 - `template_redirect`: Enables maintenance mode when active.
+- `wp_dashboard_setup`: Adds custom dashboard widgets.
 
 ## License
 

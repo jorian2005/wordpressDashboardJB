@@ -1,5 +1,5 @@
 <?php
-namespace DashboardJB\analytics;
+namespace JB_PowerPanel\analytics;
 
 if (!defined('ABSPATH')) exit;
 
@@ -62,10 +62,10 @@ function JB_render_analytics_page() {
     echo '<div class="wrap"><h1>Site Statistieken</h1>';
     echo '<p><strong>Totaal aantal weergaven:</strong> ' . $total . '</p>';
     
-    echo '<canvas id="jbChart" height="100"></canvas>';
+    echo '<canvas id="JbChart" height="100"></canvas>';
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
     echo '<script>
-        const ctx = document.getElementById("jbChart").getContext("2d");
+        const ctx = document.getElementById("JbChart").getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: {
@@ -121,10 +121,10 @@ function JB_dashboard_widget_display() {
     $labels = array_reverse($labels);
     $data = array_reverse($data);
 
-    echo '<canvas id="jbDashboardChart" height="100"></canvas>';
+    echo '<canvas id="JB_Chart" height="100"></canvas>';
     echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
     echo '<script>
-        const ctx = document.getElementById("jbDashboardChart").getContext("2d");
+        const ctx = document.getElementById("JB_Chart").getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: {

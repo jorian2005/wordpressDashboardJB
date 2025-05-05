@@ -1,0 +1,115 @@
+body.login {
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: flex;
+    align-content: center;
+}
+
+#login {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 32px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 60vh;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login h1 {
+    width: 80%;
+}
+.login h1 a {
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0 auto 0;
+}
+
+#login-message {
+    border-left: 4px solid var(--login-color);
+}
+
+.login form {
+    background-color: transparent;
+    border-color: transparent;
+    width: 80%;
+    color: #fff;
+    font-size: 16px;
+}
+.login form p:first-child,
+.login .user-pass-wrap {
+    text-align: center;
+}
+
+#login form p.submit #wp-submit,
+.wp-core-ui .button-primary {
+    text-align: center;
+    background-color: var(--login-color);
+    border: 1px solid var(--login-second-color);
+    border-radius: 4px;
+    width: 100%;
+    float: none;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+#login form p.submit #wp-submit:hover,
+.wp-core-ui .button-primary:hover {
+    background-color: var(--login-second-color);
+    border-color: var(--login-color);
+}
+
+.login label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.login input[type="text"],
+.login input[type="password"] {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+}
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+    border-color: var(--login-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    color: var(--login-second-color);
+}
+
+.language-switcher,
+#backtoblog {
+    display: none;
+}
+
+.login #backtoblog a,
+.login #nav a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.login #nav {
+    display: flex;
+    justify-content: center;
+}
+.login #nav a:hover {
+    text-decoration: underline;
+    color: var(--login-second-color);
+}
+
+.bottom-text-login {
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}

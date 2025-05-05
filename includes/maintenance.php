@@ -1,12 +1,11 @@
 <?php
-namespace DashboardJB\maintenance;
+namespace JB_PowerPanel\maintenance;
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-
-function plugin_jb_maintenance_mode_page() {
+function JB_maintenance_page() {
     wp_enqueue_media();
     ?>
     <div class="wrap">
@@ -31,14 +30,14 @@ function plugin_jb_maintenance_mode_settings_init() {
     add_settings_section(
         'maintenance-mode',
         'Instellingen',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_mode_section_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_section_callback',
         'maintenance-mode'
     );
 
     add_settings_field(
         'maintenance_mode_field_enabled',
         'Onderhoudsmodus Inschakelen',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_mode_field_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_field_callback',
         'maintenance-mode',
         'maintenance-mode'
     );
@@ -46,14 +45,14 @@ function plugin_jb_maintenance_mode_settings_init() {
     add_settings_section(
         'maintenance-mode-styling',
         'Styling',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_styling_section_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_styling_section_callback',
         'maintenance-mode'
     );
 
     add_settings_field(
         'maintenance_mode_field_title',
         'Titel',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_mode_title_field_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_title_field_callback',
         'maintenance-mode',
         'maintenance-mode'
     );
@@ -61,7 +60,7 @@ function plugin_jb_maintenance_mode_settings_init() {
     add_settings_field(
         'maintenance_mode_field_message',
         'Bericht',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_mode_message_field_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_message_field_callback',
         'maintenance-mode',
         'maintenance-mode'
     );
@@ -69,7 +68,7 @@ function plugin_jb_maintenance_mode_settings_init() {
     add_settings_field(
         'maintenance_mode_field_logo',
         'Logo',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_mode_logo_field_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_logo_field_callback',
         'maintenance-mode',
         'maintenance-mode-styling'
     );
@@ -77,12 +76,12 @@ function plugin_jb_maintenance_mode_settings_init() {
     add_settings_field(
         'maintenance_mode_field_image',
         'Achtergrondafbeelding',
-        '\DashboardJB\maintenance\plugin_jb_maintenance_mode_image_field_callback',
+        '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_image_field_callback',
         'maintenance-mode',
         'maintenance-mode-styling'
     );
 }
-add_action('admin_init', '\DashboardJB\maintenance\plugin_jb_maintenance_mode_settings_init');
+add_action('admin_init', '\JB_PowerPanel\maintenance\plugin_jb_maintenance_mode_settings_init');
 
 function plugin_jb_maintenance_mode_section_callback() {
     echo '<p>Configureer hier de instellingen voor de onderhoudsmodus.</p>';
@@ -242,4 +241,4 @@ function enable_maintenance_mode() {
         </div>', $title, ['response' => 503]);
     }
 }
-add_action('template_redirect', '\DashboardJB\maintenance\enable_maintenance_mode');
+add_action('template_redirect', '\JB_PowerPanel\maintenance\enable_maintenance_mode');

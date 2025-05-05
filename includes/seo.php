@@ -1,11 +1,11 @@
 <?php
-namespace DashboardJB\seo;
+namespace JB_PowerPanel\seo;
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-function mijn_seo_plugin_generate_sitemap() {
+function JB_generate_sitemap() {
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
@@ -13,7 +13,6 @@ function mijn_seo_plugin_generate_sitemap() {
     $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
     $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
-    // Voeg de homepage toe
     $sitemap .= '<url>';
     $sitemap .= '<loc>' . esc_url(home_url()) . '</loc>';
     $sitemap .= '<lastmod>' . date('c') . '</lastmod>';
@@ -21,7 +20,6 @@ function mijn_seo_plugin_generate_sitemap() {
     $sitemap .= '<priority>1.0</priority>';
     $sitemap .= '</url>';
 
-    // Alle publieke custom post types
     $post_types = get_post_types(['public' => true], 'names');
 
     foreach ($post_types as $post_type) {
@@ -70,7 +68,7 @@ function mijn_seo_plugin_generate_sitemap() {
 }
 
 
-function plugin_jb_seo_page() {
+function JB_seo_page() {
     ?>
     <div class="wrap">
         <h1>SEO Instellingen</h1>
@@ -83,7 +81,7 @@ function plugin_jb_seo_page() {
 
         <?php
         if ( isset( $_POST['generate_sitemap'] ) ) {
-            mijn_seo_plugin_generate_sitemap();
+            JB_generate_sitemap();
             echo '<p>Sitemap is succesvol gegenereerd en opgeslagen als sitemap.xml in de root van je website.</p>';
         }
         ?>
@@ -103,7 +101,6 @@ function plugin_jb_seo_page() {
             $word_count = str_word_count($content);
             $keywords = str_word_count($content, 1);
             $keyword_density = array_count_values($keywords);
-            $meta_description = get_meta_description($content);
             $readability_score = calculate_readability_score($content);
 
             echo '<h3>Analyse Resultaten</h3>';
@@ -114,13 +111,7 @@ function plugin_jb_seo_page() {
                 echo '<li>' . $word . ': ' . $count . ' keer</li>';
             }
             echo '</ul>';
-
             echo '<h4>Meta Description:</h4>';
-            if ($meta_description) {
-                echo '<p>Er is een meta description: ' . $meta_description . '</p>';
-            } else {
-                echo '<p>Er is geen meta description aanwezig. Het wordt aanbevolen om een meta description toe te voegen.</p>';
-            }
             echo '<h4>Leesbaarheidsscore:</h4>';
             echo '<p>Leesbaarheidsscore: ' . $readability_score . '</p>';
         }
@@ -129,11 +120,6 @@ function plugin_jb_seo_page() {
         <hr>
     </div>
     <?php
-}
-
-function get_meta_description($content) {
-    preg_match('/<meta name="description" content="([^"]*)"/i', $content, $matches);
-    return $matches[1] ?? null; 
 }
 
 function calculate_readability_score($content) {
